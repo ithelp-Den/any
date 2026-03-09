@@ -1,0 +1,285 @@
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a2e;
+    --purple: #7c4dff;
+    --purple-light: #ede7ff;
+    --purple-mid: #b39ddb;
+    --rose: #f06292;
+    --cream: #faf9f7;
+    --border: #e0d8f5;
+    --muted: #7b7b9d;
+    --success: #43a047;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--ink);
+    padding: 28px 40px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-circle {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--rose));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    color: #fff; font-size: 20px; font-weight: 700; letter-spacing: .4px;
+  }
+  .header-text p {
+    color: var(--purple-mid); font-size: 13px; margin-top: 2px;
+  }
+
+  /* ── Tab nav ── */
+  .tab-nav {
+    background: #fff;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    padding: 0 40px;
+  }
+  .tab-btn {
+    padding: 16px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    color: var(--muted);
+    background: none; border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    transition: color .2s, border-color .2s;
+    letter-spacing: .3px;
+  }
+  .tab-btn.active {
+    color: var(--purple);
+    border-bottom-color: var(--purple);
+  }
+  .tab-btn:hover { color: var(--purple); }
+
+  /* ── Panels ── */
+  .panel { display: none; padding: 40px; max-width: 720px; margin: 0 auto; }
+  .panel.active { display: block; }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--purple); margin-bottom: 20px;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .card-sub {
+    font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.5;
+  }
+
+  /* ── Form fields ── */
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block;
+    font-size: 13px; font-weight: 500;
+    color: var(--ink); margin-bottom: 7px;
+  }
+  .field label .req { color: var(--rose); margin-left: 3px; }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 11px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: #fff;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237c4dff' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(124,77,255,.12);
+  }
+  .field textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ── Radio pills ── */
+  .pill-group { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill-group input[type=radio],
+  .pill-group input[type=checkbox] { display: none; }
+  .pill-group label {
+    padding: 8px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 40px;
+    font-size: 13px; font-weight: 400;
+    cursor: pointer;
+    transition: all .18s;
+    color: var(--ink);
+    background: #fff;
+    margin: 0;
+  }
+  .pill-group input:checked + label {
+    background: var(--purple-light);
+    border-color: var(--purple);
+    color: var(--purple);
+    font-weight: 500;
+  }
+  .pill-group label:hover { border-color: var(--purple-mid); }
+
+  /* ── Star rating ── */
+  .star-row { display: flex; gap: 6px; flex-direction: row-reverse; justify-content: flex-end; }
+  .star-row input { display: none; }
+  .star-row label {
+    font-size: 28px; cursor: pointer; color: #ddd;
+    transition: color .15s;
+    margin: 0; padding: 0; background: none; border: none;
+  }
+  .star-row input:checked ~ label,
+  .star-row label:hover,
+  .star-row label:hover ~ label { color: #f9a825; }
+
+  /* ── Info box ── */
+  .info-box {
+    background: var(--purple-light);
+    border-left: 4px solid var(--purple);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    font-size: 13px; line-height: 1.6;
+    color: #4a2e7a;
+    margin-bottom: 24px;
+  }
+  .info-box strong { display: block; margin-bottom: 4px; }
+
+  /* ── Submit button ── */
+  .btn-submit {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--purple) 0%, #5e35b1 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500;
+    cursor: pointer;
+    letter-spacing: .4px;
+    transition: opacity .2s, transform .15s;
+    box-shadow: 0 4px 18px rgba(124,77,255,.3);
+  }
+  .btn-submit:hover { opacity: .92; transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* ── Success ── */
+  .success-banner {
+    display: none;
+    background: #e8f5e9;
+    border: 1.5px solid #a5d6a7;
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: center;
+    color: var(--success);
+    font-size: 15px; font-weight: 500;
+    margin-bottom: 24px;
+  }
+  .success-banner.show { display: block; }
+
+  /* ── Survey specifics ── */
+  .scale-row {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .scale-row input[type=radio] { display: none; }
+  .scale-row label {
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    transition: all .15s;
+    margin: 0;
+    color: var(--muted);
+  }
+  .scale-row input:checked + label {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: #fff;
+  }
+  .scale-row label:hover { border-color: var(--purple-mid); color: var(--purple); }
+  .scale-ends {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* ── Progress steps ── */
+  .steps {
+    display: flex; gap: 0; margin-bottom: 32px;
+  }
+  .step {
+    flex: 1; text-align: center; position: relative;
+  }
+  .step::after {
+    content: '';
+    position: absolute; top: 14px; left: 50%; right: -50%;
+    height: 2px; background: var(--border);
+    z-index: 0;
+  }
+  .step:last-child::after { display: none; }
+  .step-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--border);
+    margin: 0 auto 8px;
+    font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    position: relative; z-index: 1;
+    transition: all .2s;
+  }
+  .step.done .step-dot { background: var(--purple); border-color: var(--purple); color: #fff; }
+  .step.active .step-dot { border-color: var(--purple); color: var(--purple); box-shadow: 0 0 0 4px var(--purple-light); }
+  .step-label { font-size: 11px; color: var(--muted); letter-spacing: .3px; }
+  .step.active .step-label { color: var(--purple); font-weight: 500; }
+
+  @media (max-width: 600px) {
+    .panel { padding: 20px 16px; }
+    .header { padding: 20px 16px; }
+    .tab-nav { padding: 0 16px; }
+    .card { padding: 20px 16px; }
+    .field-row { grid-template-columns: 1fr; }
+  }
