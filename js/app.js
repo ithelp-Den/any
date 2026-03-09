@@ -146,7 +146,7 @@ async function submitRefund() {
 // ─────────────── SURVEY FORM ───────────────
 let surveySubmitting = false;
 
-async function submitSurvey() {
+function submitSurvey() {
   if (surveySubmitting) return;
   surveySubmitting = true;
 
@@ -193,16 +193,16 @@ async function submitSurvey() {
     recommend: recommend?.value || ""
   };
 
-  try {
-    console.log("Submitting survey:", data);
-    await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) });
-    showBanner(document.getElementById('survey-success'));
-    console.log("Survey submitted successfully");
-  } catch (error) {
-    console.error("Error submitting survey:", error);
-  } finally {
-    surveySubmitting = false;
-    submitButton.disabled = false;
-    submitButton.classList.remove('disabled');
-  }
+  // ── ПОКАЗ БАНЕРА І СКРОЛ ОДРАЗУ ──
+  showBanner(document.getElementById('survey-success'));
+
+  // ── ВІДПРАВКА В ФОНІ ──
+  fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
+    .then(() => console.log("Survey submitted successfully"))
+    .catch(error => console.error("Error submitting survey:", error))
+    .finally(() => {
+      surveySubmitting = false;
+      submitButton.disabled = false;
+      submitButton.classList.remove('disabled');
+    });
 }
