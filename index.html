@@ -1,313 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zubalenok — Refund Request</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zubalenok — Refund Request</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./css/main.css">
 </head>
+
 <body>
 
-<div class="header">
-  <div class="logo-circle">Z</div>
-  <div class="header-text">
-    <h1>Zubalenok Fitness</h1>
-    <p>Customer Support Portal</p>
+  <div class="header">
+    <div class="logo-circle">Z</div>
+    <div class="header-text">
+      <h1>Zubalenok Fitness</h1>
+      <p>Customer Support Portal</p>
+    </div>
   </div>
-</div>
 
-<div class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('refund', this)">💳 Refund Request</button>
-  <button class="tab-btn" onclick="switchTab('survey', this)">📋 Course Feedback Survey</button>
-</div>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('refund', this)">💳 Refund Request</button>
+    <button class="tab-btn" onclick="switchTab('survey', this)">📋 Course Feedback Survey</button>
+  </div>
 
-<!-- ════════════════════════════════════
+  <!-- ════════════════════════════════════
      PANEL 1 — REFUND FORM
 ════════════════════════════════════ -->
-<div class="panel active" id="panel-refund">
+  <div class="panel active" id="panel-refund">
 
-  <div class="info-box">
-    <strong>📌 Refund Policy Reminder</strong>
-    Refunds are processed within <strong>2 weeks from the date of purchase</strong>. If you exchanged your course, the 2-week window restarts from the exchange date. You may also request a free course swap before submitting a refund.
-  </div>
+    <div class="info-box">
+      <strong>📌 Refund Policy Reminder</strong>
+      Refunds are processed within <strong>2 weeks from the date of purchase</strong>. If you exchanged your course, the
+      2-week window restarts from the exchange date. You may also request a free course swap before submitting a refund.
+    </div>
 
-  <div class="success-banner" id="refund-success">
-    ✅ Your refund request has been submitted! Our team will contact you within 1–2 business days at the email you provided.
-  </div>
+    <div class="success-banner" id="refund-success">
+      ✅ Your refund request has been submitted! Our team will contact you within 1–2 business days at the email you
+      provided.
+    </div>
 
-  <!-- Step 1 — Personal Info -->
-  <div class="card" id="step1">
-    <p class="section-label">Step 1 of 3</p>
-    <div class="card-title">Your Details</div>
-    <p class="card-sub">We need this to locate your order and process your refund.</p>
+    <!-- Step 1 — Personal Info -->
+    <div class="card" id="step1">
+      <p class="section-label">Step 1 of 3</p>
+      <div class="card-title">Your Details</div>
+      <p class="card-sub">We need this to locate your order and process your refund.</p>
 
-    <div class="field-row">
+      <div class="field-row">
+        <div class="field">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="r_name" placeholder="e.g. Aleksandra Vasic">
+        </div>
+        <div class="field">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="r_email" placeholder="your@email.com">
+        </div>
+      </div>
+
       <div class="field">
-        <label>Full Name <span class="req">*</span></label>
-        <input type="text" id="r_name" placeholder="e.g. Aleksandra Vasic">
+        <label>Instagram Handle (if applicable)</label>
+        <input type="text" id="r_ig" placeholder="@username">
       </div>
+
       <div class="field">
-        <label>Email Address <span class="req">*</span></label>
-        <input type="email" id="r_email" placeholder="your@email.com">
+        <label>Order / Purchase Date <span class="req">*</span></label>
+        <input type="date" id="r_date">
       </div>
     </div>
 
-    <div class="field">
-      <label>Instagram Handle (if applicable)</label>
-      <input type="text" id="r_ig" placeholder="@username">
+    <!-- Step 2 — Course Info -->
+    <div class="card" id="step2">
+      <p class="section-label">Step 2 of 3</p>
+      <div class="card-title">Course Information</div>
+      <p class="card-sub">Tell us which course you purchased and whether you'd like a swap instead.</p>
+
+      <div class="field">
+        <label>Course Purchased <span class="req">*</span></label>
+        <select id="r_course">
+          <option value="">— Select a course —</option>
+          <optgroup label="Individual Courses">
+            <option>Full Splits Course (+ Beginner Base)</option>
+            <option>Split-Pro Combo</option>
+            <option>Only Flexibility 1.0</option>
+            <option>Only Flexibility 2.0</option>
+            <option>Hips Mobility</option>
+            <option>Beginner Mobility</option>
+            <option>3-in-1 Mobility Program (Beginner + 2 flexibility combos)</option>
+            <option>3-in-1 Mobility Program (Back Mobility + Flexibility)</option>
+            <option>4-in-1 Program</option>
+            <option>Handstand Mastery</option>
+            <option>InHomePower</option>
+            <option>Summer Body Fit</option>
+            <option>Power Body Fit</option>
+            <option>Front Split</option>
+            <option>Middle Split</option>
+            <option>1 year bundle</option>
+            <option>Strength & Stretch</option>
+
+          </optgroup>
+          <optgroup label="Bundles">
+            <option>Split Combo (Front + Middle + Beginner Mobility)</option>
+            <option>4-in-1 Ultimate Bundle</option>
+          </optgroup>
+          <option>Other / Not Listed</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Did you exchange this course before requesting a refund?</label>
+        <div class="pill-group">
+          <input type="radio" name="exchanged" id="ex_yes" value="yes">
+          <label for="ex_yes">Yes — I exchanged it</label>
+          <input type="radio" name="exchanged" id="ex_no" value="no">
+          <label for="ex_no">No — requesting directly</label>
+        </div>
+      </div>
+
+      <div class="field" id="exchange_date_field" style="display:none">
+        <label>Date of Course Exchange <span class="req">*</span></label>
+        <input type="date" id="r_exchange_date">
+      </div>
+
+      <div class="field">
+        <label>Would you prefer a free course swap instead of a refund?</label>
+        <div class="pill-group">
+          <input type="radio" name="swap" id="sw_yes" value="yes">
+          <label for="sw_yes">Yes, offer me a swap</label>
+          <input type="radio" name="swap" id="sw_no" value="no">
+          <label for="sw_no">No, I want a refund</label>
+          <input type="radio" name="swap" id="sw_unsure" value="unsure">
+          <label for="sw_unsure">Not sure yet</label>
+        </div>
+      </div>
     </div>
 
-    <div class="field">
-      <label>Order / Purchase Date <span class="req">*</span></label>
-      <input type="date" id="r_date">
+    <!-- Step 3 — Reason -->
+    <div class="card" id="step3">
+      <p class="section-label">Step 3 of 3</p>
+      <div class="card-title">Reason for Refund</div>
+      <p class="card-sub">Understanding your situation helps us improve. Please be as honest as you like.</p>
+
+      <div class="field">
+        <label>Primary Reason <span class="req">*</span></label>
+        <select id="r_reason">
+          <option value="">— Select reason —</option>
+          <option>Injury / Medical — unable to train</option>
+          <option>Course didn't meet expectations</option>
+          <option>Refund policy was unclear / misleading information</option>
+          <option>Purchased the wrong course by mistake</option>
+          <option>Technical issues accessing the course</option>
+          <option>Financial reasons</option>
+          <option>Completed / no longer needed</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Additional Details</label>
+        <textarea id="r_details"
+          placeholder="Please describe your situation so we can help you as quickly as possible…"></textarea>
+      </div>
+
+      <div class="field">
+        <label>How would you rate the support you received so far?</label>
+        <div class="star-row">
+          <input type="radio" name="support_rating" id="s5" value="5"><label for="s5">★</label>
+          <input type="radio" name="support_rating" id="s4" value="4"><label for="s4">★</label>
+          <input type="radio" name="support_rating" id="s3" value="3"><label for="s3">★</label>
+          <input type="radio" name="support_rating" id="s2" value="2"><label for="s2">★</label>
+          <input type="radio" name="support_rating" id="s1" value="1"><label for="s1">★</label>
+        </div>
+      </div>
     </div>
+
+    <button class="btn-submit" onclick="submitRefund()">Submit Refund Request →</button>
   </div>
 
-  <!-- Step 2 — Course Info -->
-  <div class="card" id="step2">
-    <p class="section-label">Step 2 of 3</p>
-    <div class="card-title">Course Information</div>
-    <p class="card-sub">Tell us which course you purchased and whether you'd like a swap instead.</p>
-
-    <div class="field">
-      <label>Course Purchased <span class="req">*</span></label>
-      <select id="r_course">
-        <option value="">— Select a course —</option>
-        <optgroup label="Individual Courses">
-          <option>Front Split</option>
-          <option>Middle Split</option>
-          <option>Beginner Mobility</option>
-          <option>Advanced Mobility</option>
-        </optgroup>
-        <optgroup label="Bundles">
-          <option>Split Combo (Front + Middle + Beginner Mobility)</option>
-          <option>4-in-1 Ultimate Bundle</option>
-        </optgroup>
-        <option>Other / Not Listed</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label>Did you exchange this course before requesting a refund?</label>
-      <div class="pill-group">
-        <input type="radio" name="exchanged" id="ex_yes" value="yes">
-        <label for="ex_yes">Yes — I exchanged it</label>
-        <input type="radio" name="exchanged" id="ex_no" value="no">
-        <label for="ex_no">No — requesting directly</label>
-      </div>
-    </div>
-
-    <div class="field" id="exchange_date_field" style="display:none">
-      <label>Date of Course Exchange <span class="req">*</span></label>
-      <input type="date" id="r_exchange_date">
-    </div>
-
-    <div class="field">
-      <label>Would you prefer a free course swap instead of a refund?</label>
-      <div class="pill-group">
-        <input type="radio" name="swap" id="sw_yes" value="yes">
-        <label for="sw_yes">Yes, offer me a swap</label>
-        <input type="radio" name="swap" id="sw_no" value="no">
-        <label for="sw_no">No, I want a refund</label>
-        <input type="radio" name="swap" id="sw_unsure" value="unsure">
-        <label for="sw_unsure">Not sure yet</label>
-      </div>
-    </div>
-  </div>
-
-  <!-- Step 3 — Reason -->
-  <div class="card" id="step3">
-    <p class="section-label">Step 3 of 3</p>
-    <div class="card-title">Reason for Refund</div>
-    <p class="card-sub">Understanding your situation helps us improve. Please be as honest as you like.</p>
-
-    <div class="field">
-      <label>Primary Reason <span class="req">*</span></label>
-      <select id="r_reason">
-        <option value="">— Select reason —</option>
-        <option>Injury / Medical — unable to train</option>
-        <option>Course didn't meet expectations</option>
-        <option>Refund policy was unclear / misleading information</option>
-        <option>Purchased the wrong course by mistake</option>
-        <option>Technical issues accessing the course</option>
-        <option>Financial reasons</option>
-        <option>Completed / no longer needed</option>
-        <option>Other</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label>Additional Details</label>
-      <textarea id="r_details" placeholder="Please describe your situation so we can help you as quickly as possible…"></textarea>
-    </div>
-
-    <div class="field">
-      <label>How would you rate the support you received so far?</label>
-      <div class="star-row">
-        <input type="radio" name="support_rating" id="s5" value="5"><label for="s5">★</label>
-        <input type="radio" name="support_rating" id="s4" value="4"><label for="s4">★</label>
-        <input type="radio" name="support_rating" id="s3" value="3"><label for="s3">★</label>
-        <input type="radio" name="support_rating" id="s2" value="2"><label for="s2">★</label>
-        <input type="radio" name="support_rating" id="s1" value="1"><label for="s1">★</label>
-      </div>
-    </div>
-  </div>
-
-  <button class="btn-submit" onclick="submitRefund()">Submit Refund Request →</button>
-</div>
-
-<!-- ════════════════════════════════════
+  <!-- ════════════════════════════════════
      PANEL 2 — SURVEY
 ════════════════════════════════════ -->
-<div class="panel" id="panel-survey">
+  <div class="panel" id="panel-survey">
 
-  <div class="success-banner" id="survey-success">
-    ✅ Thank you for your feedback! It truly helps us improve our courses for everyone. 💜
-  </div>
+    <div class="success-banner" id="survey-success">
+      ✅ Thank you for your feedback! It truly helps us improve our courses for everyone. 💜
+    </div>
 
-  <div class="card">
-    <p class="section-label">About You</p>
-    <div class="card-title">Course Feedback Survey</div>
-    <p class="card-sub">Share your honest experience. This takes about 2–3 minutes.</p>
+    <div class="card">
+      <p class="section-label">About You</p>
+      <div class="card-title">Course Feedback Survey</div>
+      <p class="card-sub">Share your honest experience. This takes about 2–3 minutes.</p>
 
-    <div class="field-row">
+      <div class="field-row">
+        <div class="field">
+          <label>Your Name <span class="req">*</span></label>
+          <input type="text" id="sv_name" placeholder="First name is fine">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="sv_email" placeholder="optional">
+        </div>
+      </div>
+
       <div class="field">
-        <label>Your Name <span class="req">*</span></label>
-        <input type="text" id="sv_name" placeholder="First name is fine">
+        <label>Which course did you take? <span class="req">*</span></label>
+        <select id="sv_course">
+          <option value="">— Select a course —</option>
+          <optgroup label="Individual Courses">
+            <option>Full Splits Course (+ Beginner Base)</option>
+            <option>Split-Pro Combo</option>
+            <option>Only Flexibility 1.0</option>
+            <option>Only Flexibility 2.0</option>
+            <option>Hips Mobility</option>
+            <option>Beginner Mobility</option>
+            <option>3-in-1 Mobility Program (Beginner + 2 flexibility combos)</option>
+            <option>3-in-1 Mobility Program (Back Mobility + Flexibility)</option>
+            <option>4-in-1 Program</option>
+            <option>Handstand Mastery</option>
+            <option>InHomePower</option>
+            <option>Summer Body Fit</option>
+            <option>Power Body Fit</option>
+            <option>Front Split</option>
+            <option>Middle Split</option>
+            <option>1 year bundle</option>
+            <option>Strength & Stretch</option>
+
+          </optgroup>
+          <optgroup label="Bundles">
+            <option>Split Combo (Front + Middle + Beginner Mobility)</option>
+            <option>4-in-1 Ultimate Bundle</option>
+          </optgroup>
+        </select>
       </div>
+
       <div class="field">
-        <label>Email</label>
-        <input type="email" id="sv_email" placeholder="optional">
+        <label>How long have you been doing this course?</label>
+        <div class="pill-group">
+          <input type="radio" name="sv_duration" id="d1" value="less1"><label for="d1">Less than 1 week</label>
+          <input type="radio" name="sv_duration" id="d2" value="1-2w"><label for="d2">1–2 weeks</label>
+          <input type="radio" name="sv_duration" id="d3" value="1m"><label for="d3">~1 month</label>
+          <input type="radio" name="sv_duration" id="d4" value="1m+"><label for="d4">1 month+</label>
+        </div>
       </div>
     </div>
 
-    <div class="field">
-      <label>Which course did you take? <span class="req">*</span></label>
-      <select id="sv_course">
-        <option value="">— Select a course —</option>
-        <optgroup label="Individual Courses">
-          <option>Front Split</option>
-          <option>Middle Split</option>
-          <option>Beginner Mobility</option>
-          <option>Advanced Mobility</option>
-        </optgroup>
-        <optgroup label="Bundles">
-          <option>Split Combo (Front + Middle + Beginner Mobility)</option>
-          <option>4-in-1 Ultimate Bundle</option>
-        </optgroup>
-      </select>
-    </div>
+    <div class="card">
+      <p class="section-label">Course Quality</p>
 
-    <div class="field">
-      <label>How long have you been doing this course?</label>
-      <div class="pill-group">
-        <input type="radio" name="sv_duration" id="d1" value="less1"><label for="d1">Less than 1 week</label>
-        <input type="radio" name="sv_duration" id="d2" value="1-2w"><label for="d2">1–2 weeks</label>
-        <input type="radio" name="sv_duration" id="d3" value="1m"><label for="d3">~1 month</label>
-        <input type="radio" name="sv_duration" id="d4" value="1m+"><label for="d4">1 month+</label>
+      <div class="field">
+        <label>Overall satisfaction with the course</label>
+        <div class="star-row">
+          <input type="radio" name="sv_overall" id="so5" value="5"><label for="so5">★</label>
+          <input type="radio" name="sv_overall" id="so4" value="4"><label for="so4">★</label>
+          <input type="radio" name="sv_overall" id="so3" value="3"><label for="so3">★</label>
+          <input type="radio" name="sv_overall" id="so2" value="2"><label for="so2">★</label>
+          <input type="radio" name="sv_overall" id="so1" value="1"><label for="so1">★</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>How clear were the instructions and exercises?</label>
+        <div class="scale-row">
+          <input type="radio" name="sv_clarity" id="c1" value="1"><label for="c1">1</label>
+          <input type="radio" name="sv_clarity" id="c2" value="2"><label for="c2">2</label>
+          <input type="radio" name="sv_clarity" id="c3" value="3"><label for="c3">3</label>
+          <input type="radio" name="sv_clarity" id="c4" value="4"><label for="c4">4</label>
+          <input type="radio" name="sv_clarity" id="c5" value="5"><label for="c5">5</label>
+          <input type="radio" name="sv_clarity" id="c6" value="6"><label for="c6">6</label>
+          <input type="radio" name="sv_clarity" id="c7" value="7"><label for="c7">7</label>
+          <input type="radio" name="sv_clarity" id="c8" value="8"><label for="c8">8</label>
+          <input type="radio" name="sv_clarity" id="c9" value="9"><label for="c9">9</label>
+          <input type="radio" name="sv_clarity" id="c10" value="10"><label for="c10">10</label>
+        </div>
+        <div class="scale-ends"><span>Not clear at all</span><span>Very clear</span></div>
+      </div>
+
+      <div class="field">
+        <label>Did the course match what was described on the sales page?</label>
+        <div class="pill-group">
+          <input type="radio" name="sv_match" id="m1" value="yes"><label for="m1">Yes, it did</label>
+          <input type="radio" name="sv_match" id="m2" value="partly"><label for="m2">Partly</label>
+          <input type="radio" name="sv_match" id="m3" value="no"><label for="m3">No, not really</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Did you notice any results?</label>
+        <div class="pill-group">
+          <input type="radio" name="sv_results" id="r1" value="yes"><label for="r1">Yes, definitely</label>
+          <input type="radio" name="sv_results" id="r2" value="some"><label for="r2">Some progress</label>
+          <input type="radio" name="sv_results" id="r3" value="no"><label for="r3">Not yet</label>
+          <input type="radio" name="sv_results" id="r4" value="stopped"><label for="r4">I stopped early</label>
+        </div>
       </div>
     </div>
+
+    <div class="card">
+      <p class="section-label">Refund Policy Clarity</p>
+
+      <div class="field">
+        <label>Was the refund policy clearly communicated before you purchased?</label>
+        <div class="pill-group">
+          <input type="radio" name="sv_policy" id="p1" value="yes"><label for="p1">Yes, very clear</label>
+          <input type="radio" name="sv_policy" id="p2" value="somewhat"><label for="p2">Somewhat</label>
+          <input type="radio" name="sv_policy" id="p3" value="no"><label for="p3">No, it was confusing</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Was it clear that the 2-week refund window restarts after a course swap?</label>
+        <div class="pill-group">
+          <input type="radio" name="sv_swap_policy" id="sp1" value="yes"><label for="sp1">Yes</label>
+          <input type="radio" name="sv_swap_policy" id="sp2" value="no"><label for="sp2">No</label>
+          <input type="radio" name="sv_swap_policy" id="sp3" value="na"><label for="sp3">I didn't swap</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-label">Open Feedback</p>
+
+      <div class="field">
+        <label>What did you like most about the course?</label>
+        <textarea id="sv_liked" placeholder="e.g. the progression, explanations, content quality…"></textarea>
+      </div>
+
+      <div class="field">
+        <label>What could be improved?</label>
+        <textarea id="sv_improve" placeholder="Any suggestions are welcome…"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Would you recommend Zubalenok courses to a friend?</label>
+        <div class="pill-group">
+          <input type="radio" name="sv_recommend" id="rec1" value="yes"><label for="rec1">Yes, definitely</label>
+          <input type="radio" name="sv_recommend" id="rec2" value="maybe"><label for="rec2">Maybe</label>
+          <input type="radio" name="sv_recommend" id="rec3" value="no"><label for="rec3">No</label>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-submit" onclick="submitSurvey()">Submit Feedback →</button>
   </div>
-
-  <div class="card">
-    <p class="section-label">Course Quality</p>
-
-    <div class="field">
-      <label>Overall satisfaction with the course</label>
-      <div class="star-row">
-        <input type="radio" name="sv_overall" id="so5" value="5"><label for="so5">★</label>
-        <input type="radio" name="sv_overall" id="so4" value="4"><label for="so4">★</label>
-        <input type="radio" name="sv_overall" id="so3" value="3"><label for="so3">★</label>
-        <input type="radio" name="sv_overall" id="so2" value="2"><label for="so2">★</label>
-        <input type="radio" name="sv_overall" id="so1" value="1"><label for="so1">★</label>
-      </div>
-    </div>
-
-    <div class="field">
-      <label>How clear were the instructions and exercises?</label>
-      <div class="scale-row">
-        <input type="radio" name="sv_clarity" id="c1" value="1"><label for="c1">1</label>
-        <input type="radio" name="sv_clarity" id="c2" value="2"><label for="c2">2</label>
-        <input type="radio" name="sv_clarity" id="c3" value="3"><label for="c3">3</label>
-        <input type="radio" name="sv_clarity" id="c4" value="4"><label for="c4">4</label>
-        <input type="radio" name="sv_clarity" id="c5" value="5"><label for="c5">5</label>
-        <input type="radio" name="sv_clarity" id="c6" value="6"><label for="c6">6</label>
-        <input type="radio" name="sv_clarity" id="c7" value="7"><label for="c7">7</label>
-        <input type="radio" name="sv_clarity" id="c8" value="8"><label for="c8">8</label>
-        <input type="radio" name="sv_clarity" id="c9" value="9"><label for="c9">9</label>
-        <input type="radio" name="sv_clarity" id="c10" value="10"><label for="c10">10</label>
-      </div>
-      <div class="scale-ends"><span>Not clear at all</span><span>Very clear</span></div>
-    </div>
-
-    <div class="field">
-      <label>Did the course match what was described on the sales page?</label>
-      <div class="pill-group">
-        <input type="radio" name="sv_match" id="m1" value="yes"><label for="m1">Yes, it did</label>
-        <input type="radio" name="sv_match" id="m2" value="partly"><label for="m2">Partly</label>
-        <input type="radio" name="sv_match" id="m3" value="no"><label for="m3">No, not really</label>
-      </div>
-    </div>
-
-    <div class="field">
-      <label>Did you notice any results?</label>
-      <div class="pill-group">
-        <input type="radio" name="sv_results" id="r1" value="yes"><label for="r1">Yes, definitely</label>
-        <input type="radio" name="sv_results" id="r2" value="some"><label for="r2">Some progress</label>
-        <input type="radio" name="sv_results" id="r3" value="no"><label for="r3">Not yet</label>
-        <input type="radio" name="sv_results" id="r4" value="stopped"><label for="r4">I stopped early</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <p class="section-label">Refund Policy Clarity</p>
-
-    <div class="field">
-      <label>Was the refund policy clearly communicated before you purchased?</label>
-      <div class="pill-group">
-        <input type="radio" name="sv_policy" id="p1" value="yes"><label for="p1">Yes, very clear</label>
-        <input type="radio" name="sv_policy" id="p2" value="somewhat"><label for="p2">Somewhat</label>
-        <input type="radio" name="sv_policy" id="p3" value="no"><label for="p3">No, it was confusing</label>
-      </div>
-    </div>
-
-    <div class="field">
-      <label>Was it clear that the 2-week refund window restarts after a course swap?</label>
-      <div class="pill-group">
-        <input type="radio" name="sv_swap_policy" id="sp1" value="yes"><label for="sp1">Yes</label>
-        <input type="radio" name="sv_swap_policy" id="sp2" value="no"><label for="sp2">No</label>
-        <input type="radio" name="sv_swap_policy" id="sp3" value="na"><label for="sp3">I didn't swap</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <p class="section-label">Open Feedback</p>
-
-    <div class="field">
-      <label>What did you like most about the course?</label>
-      <textarea id="sv_liked" placeholder="e.g. the progression, explanations, content quality…"></textarea>
-    </div>
-
-    <div class="field">
-      <label>What could be improved?</label>
-      <textarea id="sv_improve" placeholder="Any suggestions are welcome…"></textarea>
-    </div>
-
-    <div class="field">
-      <label>Would you recommend Zubalenok courses to a friend?</label>
-      <div class="pill-group">
-        <input type="radio" name="sv_recommend" id="rec1" value="yes"><label for="rec1">Yes, definitely</label>
-        <input type="radio" name="sv_recommend" id="rec2" value="maybe"><label for="rec2">Maybe</label>
-        <input type="radio" name="sv_recommend" id="rec3" value="no"><label for="rec3">No</label>
-      </div>
-    </div>
-  </div>
-
-  <button class="btn-submit" onclick="submitSurvey()">Submit Feedback →</button>
-</div>
-<script src="./js/app.js"></script>
+  <script src="./js/app.js"></script>
 </body>
+
 </html>
