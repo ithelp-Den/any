@@ -1,5 +1,5 @@
 // ─────────────── SCRIPT URL ───────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2E0rKscA-Vh18kRvlekhgqSFogrSOLkcPDpKt2RnhlHBJ6lwjVLZYk1shHqxgb5T3/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwEAQSRb_d9Lxt2rs9GAGdKsRAPqHHNyl_VJfN0Wtsd0yP7A91XH84rUejfUccHI5q0/exec";
 
 // ─────────────── SWITCH TAB ───────────────
 function switchTab(tab, btn) {
@@ -76,8 +76,6 @@ async function submitRefund() {
   const submitButton = document.querySelector('#panel-refund .btn-submit');
   disableButton(submitButton);
 
-  const name = document.getElementById('r_name');
-  const email = document.getElementById('r_email');
   const instagram = document.getElementById('r_ig');
   const purchaseDate = document.getElementById('r_date');
   const course = document.getElementById('r_course');
@@ -90,7 +88,7 @@ async function submitRefund() {
   const supportRating = document.querySelector('input[name="support_rating"]:checked');
 
   // Required fields array
-  const requiredFields = [name, email, purchaseDate, course, reason];
+  const requiredFields = [purchaseDate, course, reason];
   if (exchanged?.value === 'yes') requiredFields.push(exchangeDate);
   requiredFields.push(exchanged);
   requiredFields.push(swapPreference);
@@ -103,21 +101,8 @@ async function submitRefund() {
     return;
   }
 
-  // Email validation
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email.value.trim())) {
-    email.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    email.focus();
-    refundSubmitting = false;
-    submitButton.disabled = false;
-    submitButton.classList.remove('disabled');
-    return;
-  }
-
   const data = {
     type: "refund",
-    name: name.value.trim(),
-    email: email.value.trim(),
     instagram: instagram.value.trim(),
     purchase_date: purchaseDate.value,
     course: course.value,
