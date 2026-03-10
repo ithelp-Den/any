@@ -51,18 +51,24 @@ function disableButton(button) {
 // ─────────────── SCROLL TO FIRST EMPTY FIELD ───────────────
 function scrollToFirstEmpty(fields) {
   for (const f of fields) {
-    if ((f.tagName === "INPUT" || f.tagName === "SELECT" || f.tagName === "TEXTAREA") && !f.value.trim()) {
+    // Якщо елемента не існує (null), пропускаємо його
+    if (!f) continue;
+
+    // Перевірка для текстових полів, селектів та дата-пікерів
+    const isInput = (f.tagName === "INPUT" || f.tagName === "SELECT" || f.tagName === "TEXTAREA");
+    if (isInput && f.type !== 'radio' && !f.value.trim()) {
       f.scrollIntoView({ behavior: 'smooth', block: 'center' });
       f.focus();
-      console.log(`Empty required field: ${f.id || f.name}`);
       return true;
     }
+
+    // Спеціальна перевірка для радіо-кнопок
     if (f.type === 'radio') {
       const group = document.getElementsByName(f.name);
-      if (![...group].some(r => r.checked)) {
+      const isAnyChecked = [...group].some(r => r.checked);
+      if (!isAnyChecked) {
         group[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        group[0].focus();
-        console.log(`Empty required radio group: ${f.name}`);
+        // Можна додати візуальний акцент для групи тут
         return true;
       }
     }
@@ -74,6 +80,7 @@ function scrollToFirstEmpty(fields) {
 let refundSubmitting = false;
 
 async function submitRefund() {
+
   if (refundSubmitting) return;
   refundSubmitting = true;
 
@@ -87,19 +94,21 @@ async function submitRefund() {
   const course = document.getElementById('r_course');
   const reason = document.getElementById('r_reason');
   const details = document.getElementById('r_details');
-  const exchangeDateField = document.getElementById('exchange_date_field');
   const exchangeDate = document.getElementById('r_exchange_date');
+
   const exchanged = document.querySelector('input[name="exchanged"]:checked');
   const swapPreference = document.querySelector('input[name="swap"]:checked');
   const supportRating = document.querySelector('input[name="support_rating"]:checked');
 
-  // Required fields array
-  const requiredFields = [name, email, purchaseDate, course, reason];
-  if (exchanged?.value === 'yes') requiredFields.push(exchangeDate);
-  requiredFields.push(exchanged);
-  requiredFields.push(swapPreference);
+  const uploadBox = document.getElementById("upload-placeholder");
 
-  // Check required
+  // REQUIRED FIELDS
+  const requiredFields = [name, email, purchaseDate, course, reason, exchanged, swapPreference];
+
+  if (exchanged?.value === "yes") {
+    requiredFields.push(exchangeDate);
+  }
+
   if (scrollToFirstEmpty(requiredFields)) {
     refundSubmitting = false;
     submitButton.disabled = false;
@@ -107,11 +116,27 @@ async function submitRefund() {
     return;
   }
 
-  // Email validation
+  // EMAIL VALIDATION
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if (!emailPattern.test(email.value.trim())) {
     email.scrollIntoView({ behavior: 'smooth', block: 'center' });
     email.focus();
+
+    refundSubmitting = false;
+    submitButton.disabled = false;
+    submitButton.classList.remove('disabled');
+    return;
+  }
+
+  // RECEIPT REQUIRED
+  if (!uploadedFile) {
+
+    uploadBox.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
     refundSubmitting = false;
     submitButton.disabled = false;
     submitButton.classList.remove('disabled');
@@ -120,13 +145,11 @@ async function submitRefund() {
 
   let receiptUrl = "";
 
-    if (uploadedFile) {
-    try {
-        receiptUrl = await uploadToCloudinary(uploadedFile);
-    } catch (e) {
-        console.error("Upload failed", e);
-    }
-    }
+  try {
+    receiptUrl = await uploadToCloudinary(uploadedFile);
+  } catch (e) {
+    console.error("Upload failed", e);
+  }
 
   const data = {
     type: "refund",
@@ -144,18 +167,22 @@ async function submitRefund() {
     receipt: receiptUrl
   };
 
-  // ── ПОКАЗУЄМО БАНЕР І СКРОЛ ОДРАЗУ ──
   showBanner(document.getElementById('refund-success'));
 
-  // ── ВІДПРАВКА В ФОНІ ──
-  fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
-    .then(() => console.log("Refund submitted successfully"))
-    .catch(error => console.error("Error submitting refund:", error))
-    .finally(() => {
-      refundSubmitting = false;
-      submitButton.disabled = false;
-      submitButton.classList.remove('disabled');
-    });
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(() => console.log("Refund submitted successfully"))
+  .catch(error => console.error("Error submitting refund:", error))
+  .finally(() => {
+
+    refundSubmitting = false;
+    submitButton.disabled = false;
+    submitButton.classList.remove('disabled');
+
+  });
+
 }
 
 // ─────────────── SURVEY FORM ───────────────
