@@ -84,6 +84,26 @@ Thank you for your request!
         <label>Order / Purchase Date <span class="req">*</span></label>
         <input type="date" id="r_date">
       </div>
+
+      <div class="field">
+      <label>Proof of Payment <span class="req">*</span></label>
+      <div class="upload-box" id="upload-box" onclick="document.getElementById('r_receipt').click()">
+        <input type="file" id="r_receipt" accept="image/*,.pdf" style="display:none" onchange="handleUpload(this)">
+        <div id="upload-placeholder">
+          <div style="font-size:28px;margin-bottom:8px">📎</div>
+          <div style="font-weight:500;font-size:14px">Upload your bank receipt</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">Tap to choose a screenshot or photo · JPG, PNG, PDF</div>
+        </div>
+        <div id="upload-preview" style="display:none;align-items:center;gap:12px">
+          <img id="preview-img" style="max-height:60px;max-width:80px;border-radius:6px;object-fit:cover">
+          <div>
+            <div id="preview-name" style="font-size:13px;font-weight:500;color:var(--ink)"></div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">Tap to change</div>
+          </div>
+          <span style="margin-left:auto;font-size:18px">✅</span>
+        </div>
+      </div>
+    </div>
     </div>
 
     <!-- Step 2 — Course Info -->
@@ -150,19 +170,42 @@ Thank you for your request!
       <p class="card-sub">Understanding your situation helps us improve. Please be as honest as you like.</p>
 
       <div class="field">
-        <label>Primary Reason <span class="req">*</span></label>
-        <select id="r_reason">
-          <option value="">— Select reason —</option>
-          <option>Injury / Medical — unable to train</option>
-          <option>Course didn't meet expectations</option>
-          <option>Refund policy was unclear / misleading information</option>
-          <option>Purchased the wrong course by mistake</option>
-          <option>Technical issues accessing the course</option>
+      <label>Primary Reason <span class="req">*</span></label>
+      <select id="r_reason">
+        <option value="">— Select reason —</option>
+        <optgroup label="Health & Physical">
+          <option>Injury — I got injured and cannot train right now</option>
+          <option>Medical condition — doctor advised me to stop training</option>
+          <option>Pregnancy or postpartum — the exercises are not suitable for me</option>
+          <option>Chronic pain or joint issues — course is too intense</option>
+        </optgroup>
+        <optgroup label="Course Content">
+          <option>Course didn't match the description on the sales page</option>
+          <option>Level was wrong — too easy or too advanced for me</option>
+          <option>Not enough progress or visible results</option>
+          <option>Missing content — some lessons or materials are incomplete</option>
+          <option>I expected more guidance / personal feedback</option>
+          <option>I accidentally bought a course I already own</option>
+          <option>I purchased the wrong course by mistake</option>
+        </optgroup>
+        <optgroup label="Policy & Process">
+          <option>Refund policy was not clearly explained before purchase</option>
+          <option>I wasn't informed the 2-week window restarts after a course swap</option>
+          <option>Support team advised me I could request a refund</option>
+        </optgroup>
+        <optgroup label="Technical">
+          <option>Cannot access the course — technical issues on the platform</option>
+          <option>Videos won't load or playback is broken</option>
+          <option>I lost access to my account</option>
+        </optgroup>
+        <optgroup label="Personal">
+          <option>No longer have time to follow the program</option>
           <option>Financial reasons</option>
-          <option>Completed / no longer needed</option>
-          <option>Other</option>
-        </select>
-      </div>
+          <option>I changed my fitness goals</option>
+          <option>Other — I'll explain below</option>
+        </optgroup>
+      </select>
+    </div>
 
       <div class="field">
         <label>Additional Details</label>
