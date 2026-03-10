@@ -1,5 +1,9 @@
-// ─────────────── SCRIPT URL ───────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxAEl6S32efGzqYNJzZOsO1fOKlbnhHyMu6eWjjSxRyEjSFF-dznudeya-3BNhb76xr/exec";
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJN_n_DKeRETuDrweUllo8Gl5i4colItoUonTtOlkmrw3SSUxBQTscX-a9CEEN_o7r/exec";
+const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dm1uelfwv/auto/upload";
+const CLOUDINARY_PRESET = "survey_upload";
+
+let uploadedFile = null;
 
 // ─────────────── SWITCH TAB ───────────────
 function switchTab(tab, btn) {
@@ -114,6 +118,16 @@ async function submitRefund() {
     return;
   }
 
+  let receiptUrl = "";
+
+    if (uploadedFile) {
+    try {
+        receiptUrl = await uploadToCloudinary(uploadedFile);
+    } catch (e) {
+        console.error("Upload failed", e);
+    }
+    }
+
   const data = {
     type: "refund",
     name: name.value.trim(),
@@ -126,7 +140,8 @@ async function submitRefund() {
     swap: swapPreference?.value || "",
     reason: reason.value,
     details: details.value,
-    support_rating: supportRating?.value || ""
+    support_rating: supportRating?.value || "",
+    receipt: receiptUrl
   };
 
   // ── ПОКАЗУЄМО БАНЕР І СКРОЛ ОДРАЗУ ──
@@ -201,4 +216,83 @@ function submitSurvey() {
       submitButton.disabled = false;
       submitButton.classList.remove('disabled');
     });
+}
+
+function handleUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  uploadedFile = file;
+
+  const previewBox = document.getElementById("upload-preview");
+  const placeholder = document.getElementById("upload-placeholder");
+  const previewImg = document.getElementById("preview-img");
+  const previewName = document.getElementById("preview-name");
+
+  previewName.textContent = file.name;
+
+  if (file.type.startsWith("image/")) {
+    previewImg.src = URL.createObjectURL(file);
+    previewImg.style.display = "block";
+  } else {
+    previewImg.style.display = "none";
+  }
+
+  placeholder.style.display = "none";
+  previewBox.style.display = "flex";
+}
+
+function compressImage(file, maxWidth = 1200, quality = 0.7) {
+  return new Promise(resolve => {
+
+    if (!file.type.startsWith("image/")) {
+      resolve(file);
+      return;
+    }
+
+    const img = new Image();
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    img.onload = () => {
+
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxWidth) {
+        height *= maxWidth / width;
+        width = maxWidth;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(blob => {
+        resolve(new File([blob], file.name, { type: "image/jpeg" }));
+      }, "image/jpeg", quality);
+    };
+
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+async function uploadToCloudinary(file) {
+
+  const compressed = await compressImage(file);
+
+  const formData = new FormData();
+  formData.append("file", compressed);
+  formData.append("upload_preset", CLOUDINARY_PRESET);
+
+  const res = await fetch(CLOUDINARY_URL, {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+  console.log(data);
+  
+  return data.secure_url;
 }
