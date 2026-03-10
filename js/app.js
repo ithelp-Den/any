@@ -1,5 +1,5 @@
 // ─────────────── SCRIPT URL ───────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwEAQSRb_d9Lxt2rs9GAGdKsRAPqHHNyl_VJfN0Wtsd0yP7A91XH84rUejfUccHI5q0/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxAEl6S32efGzqYNJzZOsO1fOKlbnhHyMu6eWjjSxRyEjSFF-dznudeya-3BNhb76xr/exec";
 
 // ─────────────── SWITCH TAB ───────────────
 function switchTab(tab, btn) {
@@ -76,6 +76,8 @@ async function submitRefund() {
   const submitButton = document.querySelector('#panel-refund .btn-submit');
   disableButton(submitButton);
 
+  const name = document.getElementById('r_name');
+  const email = document.getElementById('r_email');
   const instagram = document.getElementById('r_ig');
   const purchaseDate = document.getElementById('r_date');
   const course = document.getElementById('r_course');
@@ -88,7 +90,7 @@ async function submitRefund() {
   const supportRating = document.querySelector('input[name="support_rating"]:checked');
 
   // Required fields array
-  const requiredFields = [purchaseDate, course, reason];
+  const requiredFields = [name, email, purchaseDate, course, reason];
   if (exchanged?.value === 'yes') requiredFields.push(exchangeDate);
   requiredFields.push(exchanged);
   requiredFields.push(swapPreference);
@@ -101,8 +103,21 @@ async function submitRefund() {
     return;
   }
 
+  // Email validation
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email.value.trim())) {
+    email.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    email.focus();
+    refundSubmitting = false;
+    submitButton.disabled = false;
+    submitButton.classList.remove('disabled');
+    return;
+  }
+
   const data = {
     type: "refund",
+    name: name.value.trim(),
+    email: email.value.trim(),
     instagram: instagram.value.trim(),
     purchase_date: purchaseDate.value,
     course: course.value,
@@ -138,8 +153,6 @@ function submitSurvey() {
   const submitButton = document.querySelector('#panel-survey .btn-submit');
   disableButton(submitButton);
 
-  const name = document.getElementById('sv_name');
-  const email = document.getElementById('sv_email');
   const course = document.getElementById('sv_course');
   const duration = document.querySelector('input[name="sv_duration"]:checked');
   const overall = document.querySelector('input[name="sv_overall"]:checked');
@@ -163,8 +176,6 @@ function submitSurvey() {
 
   const data = {
     type: "survey",
-    name: name.value.trim(),
-    email: email.value.trim(),
     course: course.value,
     duration: duration?.value || "",
     overall: overall?.value || "",
